@@ -1,1 +1,22 @@
-/home/buliarous/.xmobarrc
+Config { font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
+        , bgColor = "black"
+        , fgColor = "grey"
+        , allDesktops =      True    -- show on all desktops
+        , position = TopW L 100
+        , lowerOnStart =     False   -- send to bottom of window stack on start
+        , hideOnStart =      False   -- start with window unmapped (hidden)
+        , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
+        , persistent =       True    -- enable/disable hiding (True = disabled)
+       , commands = [ Run Network "enp3s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","15","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory [] 10
+                    , Run Swap [] 10
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run StdinReader
+                    , Run MarqueePipeReader "no messages:$HOME/.chat/chat" (30, 2, "+") "mpipe"
+                    , Run PipeReader "no volume:$HOME/.sysinfo/volume" "myvolume"
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }{ LastMessage: <fc=#FF0000>%mpipe%</fc> | <fc=#FFFF00>%myvolume%</fc> | %cpu% | %memory% | %swap% | %enp3s0% | %date%"
+       }
