@@ -14,8 +14,9 @@ Config { font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
                     , Run PipeReader "no brightness:$HOME/.sysinfo/brightness" "brightness" 
                     , Run PipeReader "no volume:$HOME/.sysinfo/volume2" "myvolume"
+                    , Run PipeReader "no btc:$HOME/.sysinfo/bitcoin" "bitcoin"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% | %swap% | %enp3s0% |  <fc=#FFFF00>%myvolume%</fc> | %brightness% }{ %date%"
+       , template = "%cpu% | %memory% | %swap% | %enp3s0% |  <fc=#FFFF00>%myvolume%</fc> | %brightness% | <fc=#FFFF00>%bitcoin%</fc> }{ %date%"
        }
