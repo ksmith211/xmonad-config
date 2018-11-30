@@ -15,7 +15,7 @@ Config { font = "-misc-fixed-*-*-*-*-13-*-*-*-*-*-*-*"
                     , Run PipeReader "no brightness:$HOME/.sysinfo/brightness" "brightness" 
                     , Run PipeReader "no volume:$HOME/.sysinfo/volume2" "myvolume"
                     , Run PipeReader "no btc:$HOME/.sysinfo/bitcoin" "bitcoin"
-                    , Run Weather "KALB" ["-t","<station> Current Conditions: <tempF>F visibility: <visibility> wind: <windCardinal> <windMph>mph <fc=#FFFF00><skyCondition></fc>","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Weather "KALB" ["-t","<station>: <tempF>F, visibility: <visibility>, wind: <windCardinal> <windMph>mph, <fc=#FFFF00><skyCondition></fc>","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
                     ]
        , sepChar = "%"
        , alignSep = "}{"
