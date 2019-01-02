@@ -95,8 +95,8 @@ main = do
         , ((mod1Mask, xK_n), spawn "/usr/bin/terminator")
         , ((mod1Mask, xK_s), sendMessage ToggleStruts)
         , ((0, xK_F1), spawn "xmobar -x 1 .xmobarrc2 2>&1 &")
-        , ((0, xK_F9), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo -5%")
-        , ((0, xK_F10), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo +5%")
+        , ((0, xK_F9), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo -2%")
+        , ((0, xK_F10), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo +2%")
         -- custom scripts:
         --- translate clipboard
         , ((0, xK_F4), spawn "/usr/local/bin/notitrans") 
@@ -105,7 +105,7 @@ main = do
         , ((0, xK_F5), spawn "/usr/local/bin/vimbopen 2>&1 &")
         , ((0, xK_F6), spawn "/usr/local/bin/searchyoutube") -- search youtube using clipboard and watch 1st video in floating mplayer window
         , ((0, xK_F7), spawn "/usr/local/bin/watchyoutube") -- watch youtube video from url clipboard in floating mplayer window
-        , ((0, xK_F12), spawn "/usr/bin/i3lock -i $HOME/.screenlayout/panda.resize.png -t") -- lockscreen
+        , ((0, xK_F12), spawn "/usr/bin/i3lock -i $HOME/.screenlayout/mars-curiosity.png -t") -- lockscreen
         , ((0, xK_F2), spawn "/usr/local/bin/gnome-lynx.sh") -- open a floating lynx window from clipboard
         , ((0 .|. controlMask, xK_k), spawn "emoji-keyboard -k")
         ]
