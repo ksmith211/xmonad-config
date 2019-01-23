@@ -82,9 +82,8 @@ main = do
         --, ((mod1Mask .|. shiftMask, xK_Right ), SWAP.swapTo Next)
         --, ((mod1Mask .|. shiftMask, xK_Left ),   DO.shiftTo Prev AnyWS)
         --, ((mod1Mask .|. shiftMask, xK_Right),   DO.shiftTo Next AnyWS)
-        , ((mod1Mask .|. shiftMask, xK_Left ),   DO.swapWith Prev AnyWS)
-        , ((mod1Mask .|. shiftMask, xK_Right),   DO.swapWith Next AnyWS)
- 
+        , ((mod1Mask .|. shiftMask, xK_Left ),   DO.swapWith Prev NonEmptyWS)
+        , ((mod1Mask .|. shiftMask, xK_Right),   DO.swapWith Next NonEmptyWS)
         , ((mod1Mask .|. shiftMask, xK_p ),   DO.shiftTo Prev NonEmptyWS) -- move tile to left screen
         , ((mod1Mask .|. shiftMask, xK_n),   DO.shiftTo Next NonEmptyWS) --move tile to right screen
         , ((mod1Mask, xK_Left),  DO.moveTo Prev HiddenNonEmptyWS)
