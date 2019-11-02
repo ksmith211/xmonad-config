@@ -1,0 +1,12 @@
+#!/bin/bash
+# A custom url handler for terminator terminals
+# tries to open with imageview feh then tries
+# using youtube-dl with mplayer
+# otherwise opens file or link in preferred 
+# application
+
+if ! feh $1; then
+  if ! myoutube $1; then
+    xdg-open $1
+  fi
+fi

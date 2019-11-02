@@ -1,0 +1,4 @@
+#!/bin/bash 
+set -e
+set -o pipefail
+youtube-dl -q -o- "$1" | mplayer -cache 8192  -
