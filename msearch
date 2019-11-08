@@ -1,0 +1,15 @@
+#!/bin/bash 
+#
+# mplayer -fs $(youtube-dl -g "$1")
+# below is better more functional method
+#
+# the flags below cause the correct error code to be reported if youtube-dl fails
+# so this bash script can be chained with others in if statements like in my custom
+# terminator urlhandler
+
+set -e
+set -o pipefail
+
+#youtube-dl -q -o- "$1" | mplayer -cache 8192  -
+
+youtube-dl -q -o- "ytsearch:$1" | mplayer -cache 8192 -
