@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+vimb "$(xsel -o)" 
+
+# https://googledictionaryapi.eu-gb.mybluemix.net/?define=gerrymandering&lang=en
