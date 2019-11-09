@@ -8,7 +8,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Actions.DynamicWorkspaces as DW
 import XMonad.Actions.WorkspaceNames as SWAP
 import XMonad.Actions.CycleWS
-import XMonad.Actions.CopyWindow(copy)
+import XMonad.Actions.CopyWindow (copy, copyToAll, killAllOtherCopies)
 import XMonad.Layout.Gaps
 import XMonad.Util.Run(spawnPipe)
 import qualified XMonad.StackSet as W
@@ -72,6 +72,8 @@ main = do
         , ((mod1Mask, xK_a      ), DW.addWorkspacePrompt def)
          -- jump to workspace by name
         , ((mod1Mask, xK_v      ), DW.selectWorkspace def)
+        , ((mod1Mask, xK_m ), windows copyToAll) -- Make focused window always visible
+        , ((mod1Mask .|. shiftMask, xK_v ),  killAllOtherCopies) -- Toggle window state back
         --, ((mod1Mask, xK_m      ), DW.withWorkspace def (windows . copy)) --copy tile to another workspace
         , ((mod1Mask, xK_r      ), DW.renameWorkspace def)
         , ((mod1Mask, xK_Down), windows W.swapDown)
