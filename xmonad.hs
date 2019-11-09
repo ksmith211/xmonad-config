@@ -33,6 +33,7 @@ myManageHook = composeAll
       , (className =? "feh"  --> doCenterFloat)
       , (className =? "Gimp"  --> doCenterFloat)
       , (className =? "Nautilus"  --> doCenterFloat)
+      , (className =? "Thunar"  --> doCenterFloat)
       , (className =? "Vimb"  --> doCenterFloat)
       , (className =? "Spek"  --> doCenterFloat)
       , (className =? "Org.gnome.Maps"  --> doCenterFloat)
