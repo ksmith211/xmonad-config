@@ -35,6 +35,7 @@ myManageHook = composeAll
       , (className =? "Nautilus"  --> doCenterFloat)
       , (className =? "Thunar"  --> doCenterFloat)
       , (className =? "Vimb"  --> doCenterFloat)
+      , (className =? "Gvim"  --> doCenterFloat)
       , (className =? "Spek"  --> doCenterFloat)
       , (className =? "Org.gnome.Maps"  --> doCenterFloat)
       , (className =? "Org.gnome.Weather.Application"  --> doCenterFloat)
