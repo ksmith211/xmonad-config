@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-notify-send --icon=info "$(xsel -o)" "$(wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=$(xsel -o | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | awk -F'"' '/1/ {print $2}')"
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+	notify-send --icon=info "$(xsel -o)" "$(wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=$(xsel -o | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | awk -F'"' '/1/ {print $2}')";
+fi
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  terminal-notifier -title "$(pbpaste)" -message "$(wget -U "Mozilla/5.0" -qO - "http://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q=$(pbpaste | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | awk -F'"' '/1/ {print $2}')";
+fi
