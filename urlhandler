@@ -6,19 +6,22 @@
 
 #MIME=$(file --mime-type $1)
 
-if ! feh $1; then
-  if ! myoutube $1; then
-    xdg-open $1
-  fi
-fi
+#if ! feh $1; then
+  #if ! myoutube $1; then
+    #xdg-open $1
+  #fi
+#fi
 
 # Alternate functionality where a menu picker appears using dmenu
 # Feed this script a link and it will give dmenu
 # some choice programs to use to open it.
 
-#case "$(printf "copy url\\nmyoutube\\nfeh\\nxdg-open\\n" | dmenu -i -p "Open link with what program?")" in
-#	"copy url") echo "$1" | xclip -selection clipboard ;;
-#	"myoutube") myoutube "$1" >/dev/null 2>&1 ;;
-#	xdg-open) xdg-open "$1" >/dev/null 2>&1 & ;;
-#	feh) feh "$1" >/dev/null 2>&1 & ;;
-#esac
+case "$(printf "feh\\nmpv\\ngnome-lynx\\nvimb\\nxdg-open\\ncopy url\\nmyoutube\\n" | dmenu -i -p "Open link with what program?")" in
+    "copy url") echo "$1" | xclip -selection clipboard ;;
+    "myoutube") myoutube "$1" >/dev/null 2>&1 ;;
+    "gnome-lynx") gnome-terminal -- lynx "$1" >/dev/null 2>&1 ;;
+    vimb) vimb "$1" >/dev/null 2>&1 & ;;
+    xdg-open) xdg-open "$1" >/dev/null 2>&1 & ;;
+    feh) feh "$1" >/dev/null 2>&1 & ;;
+    "mpv") setsid mpv --geometry=+0-0 --autofit=50%  --title="mpvfloat" "$1" >/dev/null 2>&1 & ;;
+esac
