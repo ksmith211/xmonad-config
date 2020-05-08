@@ -2,11 +2,23 @@
 # A custom url handler for terminator terminals
 # tries to open with imageview feh then tries
 # using youtube-dl with mplayer
-# otherwise opens file or link in preferred 
-# application
+# otherwise opens link in default browser
+
+#MIME=$(file --mime-type $1)
 
 if ! feh $1; then
   if ! myoutube $1; then
     xdg-open $1
   fi
 fi
+
+# Alternate functionality where a menu picker appears using dmenu
+# Feed this script a link and it will give dmenu
+# some choice programs to use to open it.
+
+#case "$(printf "copy url\\nmyoutube\\nfeh\\nxdg-open\\n" | dmenu -i -p "Open link with what program?")" in
+#	"copy url") echo "$1" | xclip -selection clipboard ;;
+#	"myoutube") myoutube "$1" >/dev/null 2>&1 ;;
+#	xdg-open) xdg-open "$1" >/dev/null 2>&1 & ;;
+#	feh) feh "$1" >/dev/null 2>&1 & ;;
+#esac
