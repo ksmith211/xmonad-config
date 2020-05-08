@@ -31,6 +31,7 @@ import XMonad.Hooks.ManageHelpers (composeOne, isFullscreen, isDialog,  doFullFl
 myManageHook = composeAll
     [   (className =? "Emoji-keyboard"  --> doCenterFloat)
       , (className =? "feh"  --> doCenterFloat)
+      , (className =? "mpv"  --> doCenterFloat)
       , (className =? "Gimp"  --> doCenterFloat)
       , (className =? "Nautilus"  --> doCenterFloat)
       , (className =? "Thunar"  --> doCenterFloat)
@@ -48,7 +49,8 @@ main = do
     xmproc <- spawnPipe "xmobar"
     xmonad $ defaultConfig
         { manageHook = myManageHook <+> manageDocks <+> manageHook defaultConfig 
-        , layoutHook = avoidStrutsOn [U] $  SP.spacing 5 $ layoutHook defaultConfig
+        --, layoutHook = avoidStrutsOn [U] $  SP.spacing 5 $ layoutHook defaultConfig
+        , layoutHook = avoidStruts $ layoutHook defaultConfig
         , handleEventHook    = handleEventHook defaultConfig <+> docksEventHook
         , logHook = dynamicLogWithPP $ xmobarPP
                         { ppOutput = hPutStrLn xmproc
@@ -61,9 +63,9 @@ main = do
                         , ppCurrent = xmobarColor "yellow" "" . wrap "[" "]"
                         , ppLayout   = xmobarColor "yellow" "" .
                                   (\ x -> pad $ case x of
-                                            "Spacing 5 Tall" -> "TTT"
-                                            "Spacing 5 Mirror Tall"   -> "[]="
-                                            "Spacing 5 Full"          -> "[ ]"
+                                            "Spacing Tall" -> "TTT"
+                                            "Spacing Mirror Tall"   -> "[]="
+                                            "Spacing Full"          -> "[ ]"
                                             _                      -> x
                                   )
                         }
@@ -77,9 +79,10 @@ main = do
         , ((mod1Mask, xK_m ), windows copyToAll) -- Make focused window always visible
         , ((mod1Mask .|. shiftMask, xK_v ),  killAllOtherCopies) -- Toggle window state back
         --, ((mod1Mask, xK_m      ), DW.withWorkspace def (windows . copy)) --copy tile to another workspace
-        , ((mod1Mask, xK_r      ), DW.renameWorkspace def)
+        , ((mod1Mask, xK_g), sendMessage ToggleGaps)  -- toggle all gaps
+        , ((mod1Mask, xK_r), DW.renameWorkspace def)
         , ((mod1Mask, xK_Down), windows W.swapDown)
-        , ((mod1Mask, xK_Up  ), windows W.swapUp)
+        , ((mod1Mask, xK_Up), windows W.swapUp)
         -- move to named workspace
         , ((mod1Mask .|. shiftMask, xK_m      ), DW.withWorkspace def (windows . W.shift)) 
         --, ((mod1Mask .|. shiftMask, xK_Left  ), SWAP.swapTo Prev) -- move entire workspace left or right 

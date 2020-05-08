@@ -1,4 +1,6 @@
 #!/bin/bash 
+#mplayer -fs $(youtube-dl -g "$1")
+# below is better more functional method
 set -e
 set -o pipefail
-youtube-dl -q -o- "$1" | mplayer -cache 8192  -
+mpv "$1"

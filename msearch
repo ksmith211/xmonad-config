@@ -12,4 +12,4 @@ set -o pipefail
 
 #youtube-dl -q -o- "$1" | mplayer -cache 8192  -
 
-youtube-dl -q -o- "ytsearch:$1" | mplayer -cache 8192 -
+youtube-dl -q -o- "ytsearch:$1" | mpv -
