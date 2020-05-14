@@ -101,8 +101,8 @@ main = do
         , ((mod1Mask, xK_n), spawn "/usr/bin/terminator")
         , ((mod1Mask, xK_s), sendMessage ToggleStruts)
         , ((0, xK_F1), spawn "xmobar -x 1 .xmobarrc2 2>&1 &")
-        , ((0, xK_F9), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo -5%")
-        , ((0, xK_F10), spawn "pactl -- set-sink-volume alsa_output.usb-0d8c_C-Media_USB_Audio_Device-00.analog-stereo +5%")
+        , ((0, xK_F9), spawn "/usr/local/bin/volume_down.sh")
+        , ((0, xK_F10), spawn "/usr/local/bin/volume_up.sh")
         -- custom scripts:
         --- translate clipboard
         , ((0, xK_F4), spawn "/usr/local/bin/notitrans") 
