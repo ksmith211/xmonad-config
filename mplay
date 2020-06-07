@@ -3,4 +3,4 @@
 # below is better more functional method
 set -e
 set -o pipefail
-mplayer -cache 8192  "$1"
+mpv  "$1"
