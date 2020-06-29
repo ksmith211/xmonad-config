@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-	notify-send --icon=info "$(xsel -o)" "$(wget -U "Mozilla/5.0" -qO - "https://googledictionaryapi.eu-gb.mybluemix.net/?define=$(xsel -o | sed "s/[\"'<>]//g")&lang=en" | sed "s/,,,0]],,.*//g" | grep "definition")"
+	notify-send --icon=info "$(xsel -o)" "$(wget -U "Mozilla/5.0" -qO - "https://api.dictionaryapi.dev/api/v1/entries/en/$(xsel -o | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | grep "definition" | tr -d '"')"
 fi
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	terminal-notifier -title "$(pbpaste)" -message "$(wget -U "Mozilla/5.0" -qO - "https://googledictionaryapi.eu-gb.mybluemix.net/?define=$(pbpaste | sed "s/[\"'<>]//g")&lang=en" | sed "s/,,,0]],,.*//g" | grep "definition" | tr -d '"' )"
+	terminal-notifier -title "$(pbpaste)" -message "$(wget -U "Mozilla/5.0" -qO - "https://api.dictionaryapi.dev/api/v1/entries/en/$(pbpaste | sed "s/[\"'<>]//g")" | sed "s/,,,0]],,.*//g" | grep "definition" | tr -d '"' )"
 fi
