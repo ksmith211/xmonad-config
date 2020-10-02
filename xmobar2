@@ -1,0 +1,3 @@
+#! /bin/bash
+kill -9 $(ps -ax | grep "xmobar -x 1 .xmobarrc2" | awk '{print $1}')
+xmobar -x 1 .xmobarrc2 2>&1 &
