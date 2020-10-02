@@ -100,18 +100,25 @@ main = do
         , ((mod1Mask, xK_b), spawn "/usr/local/bin/firefox")
         , ((mod1Mask, xK_n), spawn "/usr/bin/terminator")
         , ((mod1Mask, xK_s), sendMessage ToggleStruts)
-        , ((0, xK_F1), spawn "xmobar -x 1 .xmobarrc2 2>&1 &")
-        , ((0, xK_F9), spawn "/usr/local/bin/volume_down.sh")
-        , ((0, xK_F10), spawn "/usr/local/bin/volume_up.sh")
+--        , ((0, xK_F1), spawn "xmobar -x 1 .xmobarrc2 2>&1 &")
+--        , ((0, xK_F11), spawn "/usr/local/bin/volume_down.sh")
+--        , ((0, xK_F12), spawn "/usr/local/bin/volume_up.sh")
         -- custom scripts:
         --- translate clipboard
-        , ((0, xK_F4), spawn "/usr/local/bin/notitrans") 
+        , ((0, 0x1008ff4b), spawn "/usr/local/bin/notitrans") 
         -- dictionary lookup clipboard
-        , ((0, xK_F3), spawn "/usr/local/bin/notidict")         
-        , ((0, xK_F5), spawn "/usr/local/bin/vimbopen 2>&1 &")
-        , ((0, xK_F6), spawn "/usr/local/bin/searchyoutube") -- search youtube using clipboard and watch 1st video in floating mplayer window
-        , ((0, xK_F7), spawn "/usr/local/bin/watchyoutube") -- watch youtube video from url clipboard in floating mplayer window
-        , ((0, xK_F12), spawn "/usr/bin/i3lock -i $HOME/.screenlayout/mars-curiosity.png -t") -- lockscreen
-        , ((0, xK_F2), spawn "/usr/local/bin/gnome-lynx.sh") -- open a floating lynx window from clipboard
-        , ((0 .|. controlMask, xK_k), spawn "emoji-keyboard -k")
-        ]
+        , ((0, 0x1008ff4a), spawn "/usr/local/bin/notidict")         
+	, ((0, 0x1008ff13), spawn "/usr/local/bin/volume_up.sh")
+	, ((0, 0x1008ff11), spawn "/usr/local/bin/volume_down.sh")
+	, ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
+    	, ((0, 0x1008ff03), spawn "/usr/local/bin/brightnessdown")
+    	, ((0, 0x1008ff02), spawn "/usr/local/bin/brightnessup")
+	, ((0, 0x1008fff2), spawn "eject /dev/sr0")
+--        , ((0, xK_F5), spawn "/usr/local/bin/vimbopen 2>&1 &")
+        , ((0, 0x1008ff16), spawn "/usr/local/bin/searchyoutube") -- search youtube using clipboard and watch 1st video in floating mplayer window
+        , ((0, 0x1008ff17), spawn "/usr/local/bin/watchyoutube") -- watch youtube video from url clipboard in floating mplayer window
+        , ((0, 0x1008ff14), spawn "/usr/bin/i3lock -i $HOME/.screenlayout/mars-curiosity.png -t") -- lockscreen
+--        , ((0, xK_F2), spawn "/usr/local/bin/gnome-lynx.sh") -- open a floating lynx window from clipboard
+--        , ((0 .|. controlMask, xK_k), spawn "emoji-keyboard -k")
+            -- Media commands (use xev to display keysyms)
+	]
