@@ -1,0 +1,16 @@
+# Script should be located at: /etc/systemd/system/matterircd.service
+# config at /etc/matterircd.toml
+
+[Unit]
+Description=Mattermost and Slack IRC daemon
+After=network.target
+
+[Service]
+ExecStart=/home/quill/go/bin/matterircd --conf /etc/matterircd.toml
+Restart=always
+User=quill
+Group=quill
+Environment=GOPATH=/home/quill/go
+
+[Install]
+WantedBy=multi-user.target
