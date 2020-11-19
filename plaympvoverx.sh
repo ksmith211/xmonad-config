@@ -9,8 +9,8 @@ HEIGHT=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of cs
 echo "$WIDTH"
 echo "$HEIGHT"
 
-NEWWIDTH=$(($WIDTH/2))
-NEWHEIGHT=$(($HEIGHT/2))
+NEWWIDTH=$((${WIDTH}/${2}))
+NEWHEIGHT=$((${HEIGHT}/${2}))
 
 echo "$NEWWIDTH"
 echo "$NEWHEIGHT"
