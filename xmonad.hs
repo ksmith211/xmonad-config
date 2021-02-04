@@ -17,6 +17,8 @@ import XMonad.Util.EZConfig(additionalKeys)
 import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 import XMonad.Layout.Spacing as SP
 import XMonad.Hooks.ManageHelpers (composeOne, isFullscreen, isDialog,  doFullFloat, doCenterFloat)
+import qualified XMonad.Actions.Search as S
+import XMonad.Actions.Submap
 
 ------------------------------------------------------------------------
 ---- Notes:
@@ -27,6 +29,43 @@ import XMonad.Hooks.ManageHelpers (composeOne, isFullscreen, isDialog,  doFullFl
 ----
 ----
 
+-- TODO: Explore xmonad keybinding submapping
+-- http://hackage.haskell.org/package/xmonad-contrib-0.8.1/docs/XMonad-Actions-Submap.html
+
+
+-- This might be cool too: https://hackage.haskell.org/package/xmonad-contrib-0.16/docs/XMonad-Actions-Search.html
+--
+archwiki, ebay, news, reddit, urban :: S.SearchEngine
+
+archwiki = S.searchEngine "archwiki" "https://wiki.archlinux.org/index.php?search="
+ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
+news     = S.searchEngine "news" "https://news.google.com/search?q="
+reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
+urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
+
+-- This is the list of search engines that I want to use. Some are from
+-- XMonad.Actions.Search, and some are the ones that I added above.
+searchList :: [(String, S.SearchEngine)]
+searchList = [ ("a", archwiki)
+             , ("d", S.duckduckgo)
+             , ("e", ebay)
+             , ("g", S.google)
+             , ("h", S.hoogle)
+             , ("i", S.images)
+             , ("n", news)
+             , ("r", reddit)
+             , ("s", S.stackage)
+             , ("t", S.thesaurus)
+             , ("v", S.vocabulary)
+             , ("b", S.wayback)
+             , ("u", urban)
+             , ("w", S.wikipedia)
+             , ("y", S.youtube)
+             , ("z", S.amazon)
+             ]
+
+-- This Contains some interesting lists in haskell for config:
+-- https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs
 
 myManageHook = composeAll
     [   (className =? "Emoji-keyboard"  --> doCenterFloat)
@@ -40,6 +79,8 @@ myManageHook = composeAll
       , (className =? "Spek"  --> doCenterFloat)
       , (className =? "Org.gnome.Maps"  --> doCenterFloat)
       , (className =? "Org.gnome.Weather.Application"  --> doCenterFloat)
+      , (className =? "org-igoweb-cgoban-CGoban"  --> doCenterFloat)
+      , (className =? "GoPanda2"  --> doCenterFloat)
       , (className =? "Display-im6.q16"  --> doCenterFloat)
       , (className =? "Vmware-netcfg"  --> doCenterFloat)
       , (className =? "Gnome-terminal"  --> doCenterFloat)
@@ -92,7 +133,12 @@ main = do
         , ((mod1Mask .|. shiftMask, xK_Left ),   DO.swapWith Prev NonEmptyWS)
         , ((mod1Mask .|. shiftMask, xK_Right),   DO.swapWith Next NonEmptyWS)
         , ((mod1Mask .|. shiftMask, xK_p ),   DO.shiftTo Prev NonEmptyWS) -- move tile to left screen
+        , ((controlMask .|. shiftMask, xK_p ),   DO.shiftTo Prev NonEmptyWS) -- move tile to left screen
         , ((mod1Mask .|. shiftMask, xK_n),   DO.shiftTo Next NonEmptyWS) --move tile to right screen
+        , ((controlMask .|. shiftMask, xK_n),   DO.shiftTo Next NonEmptyWS) --move tile to right screen
+        , ((controlMask .|. shiftMask, xK_Left ),   swapPrevScreen) -- swap workspaces 
+        , ((controlMask .|. shiftMask, xK_Right),   swapNextScreen) -- swap workspaces
+
         , ((mod1Mask, xK_Left),  DO.moveTo Prev HiddenNonEmptyWS)
         , ((mod1Mask, xK_Right),  DO.moveTo Next HiddenNonEmptyWS)
         , ((mod1Mask , xK_comma ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
@@ -100,6 +146,7 @@ main = do
         , ((mod1Mask, xK_b), spawn "/usr/local/bin/firefox")
         , ((mod1Mask, xK_n), spawn "/usr/bin/terminator")
         , ((mod1Mask, xK_s), sendMessage ToggleStruts)
+        -- , ((mod1Mask, xK_p), spawn "/usr/bin/dmenu_run")
         , ((0, xK_F1), spawn "xmobar -x 1 .xmobarrc2 2>&1 &")
         , ((0, xK_F9), spawn "/usr/local/bin/volume_down.sh")
         , ((0, xK_F10), spawn "/usr/local/bin/volume_up.sh")
