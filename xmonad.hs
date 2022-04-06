@@ -73,7 +73,7 @@ main = do
                         }
         , focusFollowsMouse = False
         , clickJustFocuses = False
-        }`additionalKeys`   -- left winkey = mod4Mask, left alt = mod1Mask
+        }`additionalKeys`   -- left winkey = mod1Mask, left alt = mod1Mask
         [ ((mod1Mask, xK_BackSpace), DW.removeWorkspace)
         , ((mod1Mask, xK_a      ), DW.addWorkspacePrompt def)
          -- jump to workspace by name
@@ -93,10 +93,12 @@ main = do
         --, ((mod1Mask .|. shiftMask, xK_Right),   DO.shiftTo Next AnyWS)
         , ((mod1Mask .|. shiftMask, xK_Left ),   DO.swapWith Prev NonEmptyWS)
         , ((mod1Mask .|. shiftMask, xK_Right),   DO.swapWith Next NonEmptyWS)
+        , ((mod1Mask .|. shiftMask, xK_Tab),   DO.swapWith Next NonEmptyWS)
         , ((mod1Mask .|. shiftMask, xK_p ),   DO.shiftTo Prev NonEmptyWS) -- move tile to left screen
         , ((mod1Mask .|. shiftMask, xK_n),   DO.shiftTo Next NonEmptyWS) --move tile to right screen
         , ((mod1Mask, xK_Left),  DO.moveTo Prev HiddenNonEmptyWS)
         , ((mod1Mask, xK_Right),  DO.moveTo Next HiddenNonEmptyWS)
+        , ((mod1Mask, xK_Tab),  DO.moveTo Next HiddenNonEmptyWS)
         , ((mod1Mask , xK_comma ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
         , ((mod1Mask , xK_period), sendMessage (IncMasterN (-1))) -- %! Deincrement the number of windows in the master area
         , ((mod1Mask, xK_b), spawn "/usr/local/bin/firefox")
@@ -113,8 +115,10 @@ main = do
 	, ((0, 0x1008ff13), spawn "/usr/local/bin/volume_up.sh")
 	, ((0, 0x1008ff11), spawn "/usr/local/bin/volume_down.sh")
 	, ((0, 0x1008ff12), spawn "amixer -q set Master toggle")
-    	, ((0, 0x1008ff03), spawn "/usr/local/bin/brightnessdown")
-    	, ((0, 0x1008ff02), spawn "/usr/local/bin/brightnessup")
+    	, ((0, 0x1008ff03), spawn "/usr/local/bin/brightness-")
+    	, ((0, 0x1008ff02), spawn "/usr/local/bin/brightness+")
+    	, ((0, 0x1008ff06), spawn "/usr/local/bin/keyboard-backlight --down")
+    	, ((0, 0x1008ff05), spawn "/usr/local/bin/keyboard-backlight --up")
 	, ((0, 0x1008fff2), spawn "eject /dev/sr0")
 --        , ((0, xK_F5), spawn "/usr/local/bin/vimbopen 2>&1 &")
         , ((0, 0x1008ff16), spawn "/usr/local/bin/searchyoutube") -- F7 --  search youtube using clipboard and watch 1st video in floating mplayer window
