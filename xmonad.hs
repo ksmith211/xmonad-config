@@ -85,7 +85,7 @@ searchEngineMap method = M.fromList $
       , ((0, xK_d), method S.duckduckgo)
       , ((0, xK_y), method S.youtube)
       , ((0, xK_t), method S.thesaurus)
-      , ((0, xK_w), method S.wayback)
+--      , ((0, xK_w), method S.wayback)
       , ((0, xK_z), method S.amazon)
       , ((0, xK_i), method S.images)
       , ((0, xK_e), method ebay)
