@@ -17,7 +17,10 @@ import XMonad.Util.EZConfig(additionalKeys)
 import qualified XMonad.Actions.DynamicWorkspaceOrder as DO
 import XMonad.Layout.Spacing as SP
 import XMonad.Hooks.ManageHelpers (composeOne, isFullscreen, isDialog,  doFullFloat, doCenterFloat)
+import qualified XMonad.Prompt         as P
+import qualified XMonad.Actions.Submap as SM
 import qualified XMonad.Actions.Search as S
+import qualified Data.Map.Strict as M
 import XMonad.Actions.Submap
 
 ------------------------------------------------------------------------
@@ -43,26 +46,6 @@ news     = S.searchEngine "news" "https://news.google.com/search?q="
 reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
 urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
 
--- This is the list of search engines that I want to use. Some are from
--- XMonad.Actions.Search, and some are the ones that I added above.
-searchList :: [(String, S.SearchEngine)]
-searchList = [ ("a", archwiki)
-             , ("d", S.duckduckgo)
-             , ("e", ebay)
-             , ("g", S.google)
-             , ("h", S.hoogle)
-             , ("i", S.images)
-             , ("n", news)
-             , ("r", reddit)
-             , ("s", S.stackage)
-             , ("t", S.thesaurus)
-             , ("v", S.vocabulary)
-             , ("b", S.wayback)
-             , ("u", urban)
-             , ("w", S.wikipedia)
-             , ("y", S.youtube)
-             , ("z", S.amazon)
-             ]
 
 -- This Contains some interesting lists in haskell for config:
 -- https://gitlab.com/dwt1/dotfiles/-/blob/master/.xmonad/xmonad.hs
@@ -83,8 +66,32 @@ myManageHook = composeAll
       , (className =? "GoPanda2"  --> doCenterFloat)
       , (className =? "Display-im6.q16"  --> doCenterFloat)
       , (className =? "Vmware-netcfg"  --> doCenterFloat)
+      , (className =? "Toolkit"  --> doCenterFloat)
       , (className =? "Gnome-terminal"  --> doCenterFloat)
     ]
+
+-- below is what is actually used for the search engine map
+searchEngineMap method = M.fromList $
+      [ ((0, xK_g), method S.google)
+      , ((0, xK_h), method S.hoogle)
+      , ((0, xK_w), method S.wikipedia)
+      , ((0, xK_i), method S.imdb)
+      , ((0, xK_c), method S.codesearch)
+      , ((0, xK_m), method S.maps)
+      , ((0, xK_o), method S.openstreetmap)
+      , ((0, xK_s), method S.scholar)
+      , ((0, xK_v), method S.vocabulary)
+      , ((0, xK_a), method archwiki)
+      , ((0, xK_d), method S.duckduckgo)
+      , ((0, xK_y), method S.youtube)
+      , ((0, xK_t), method S.thesaurus)
+      , ((0, xK_w), method S.wayback)
+      , ((0, xK_z), method S.amazon)
+      , ((0, xK_i), method S.images)
+      , ((0, xK_e), method ebay)
+      , ((0, xK_r), method reddit)
+      , ((0, xK_n), method news)
+      ]
 
 main = do
     xmproc <- spawnPipe "xmobar"
@@ -151,7 +158,7 @@ main = do
         , ((0, xK_F9), spawn "/usr/local/bin/volume_down.sh")
         , ((0, xK_F10), spawn "/usr/local/bin/volume_up.sh")
         -- custom scripts:
-        --- translate clipboard
+        -- translate clipboard
         , ((0, xK_F4), spawn "/usr/local/bin/notitrans") 
         -- dictionary lookup clipboard
         , ((0, xK_F3), spawn "/usr/local/bin/notidict")         
@@ -161,4 +168,8 @@ main = do
         , ((0, xK_F12), spawn "/usr/bin/i3lock -i $HOME/.screenlayout/mars-curiosity.png -t") -- lockscreen
         , ((0, xK_F2), spawn "/usr/local/bin/gnome-lynx.sh") -- open a floating lynx window from clipboard
         , ((0 .|. controlMask, xK_k), spawn "emoji-keyboard -k")
+        -- Search Commands
+        --, ((controlMask, xK_s), SM.submap $ searchEngineMap $ S.promptSearch P.def)
+        , ((controlMask, xK_s), SM.submap $ searchEngineMap $ S.promptSearch P.def)
+        , ((controlMask .|. shiftMask, xK_s), SM.submap $ searchEngineMap $ S.selectSearch)
         ]
